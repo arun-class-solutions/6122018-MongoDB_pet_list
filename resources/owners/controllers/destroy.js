@@ -9,4 +9,13 @@ module.exports = (req, res) => {
   // Remove the owner from the "owners" collection given the ID above
 
   // Call this method when the query is complete: res.sendStatus(200);
+
+  MongoClient.connect(mongoUrl, (err, db) => {
+    db.collection("owners").remove({
+      _id: ownerId
+    }, (err) => {
+      res.sendStatus(200);
+      db.close();
+    });
+  });
 }
